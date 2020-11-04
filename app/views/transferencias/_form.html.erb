@@ -1,0 +1,54 @@
+<%= form_with(model: transferencia, local: true) do |form| %>
+  <% if transferencia.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(transferencia.errors.count, "erro") %> Problemas encontrados:</h2>
+
+      <ul>
+        <% transferencia.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h3>
+    <strong>Autor:</strong>
+    <%= hidden_field_tag "transferencia[cliente_id]", @conta_autor.id %>
+    <%= @cliente_autor.nome %>
+  </h3>
+
+  <div class="field">
+    <%= hidden_field_tag "transferencia[conta_id]", 0 %>
+    <% if @transferencia.tipo != 'saque' %>
+      <%= form.label :numero %>
+      <%= form.text_field :numero, value: params[:transferencia] ? params[:transferencia][:numero] : '', :required => true %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valor %>
+    <%= form.text_field :valor, class: "money", :required => true %>
+  </div>
+
+  <% if @transferencia.tipo == 'transferência' %>
+    <div class="field">
+      <%= label :usu, "Senha:" %>
+      <%= password_field(:usu, :senha, :required => true, :placeholder => "senha") %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= hidden_field_tag "transferencia[tipo]", @transferencia.tipo %>
+    <%= hidden_field_tag "transferencia[saldo]", 0.0 %>
+    <%= hidden_field_tag "transferencia[tarifa]", 0.0 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit("Efetuar " + @transferencia.tipo) %>
+  </div>
+<% end %>
+<script>
+    $(document).ready(function ($) {
+        $('.money').mask("#.##0,00", {reverse: true});
+    });
+</script>

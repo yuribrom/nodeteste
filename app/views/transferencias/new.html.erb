@@ -1,0 +1,5 @@
+<h1>Nova <%= @transferencia.tipo %></h1>
+<p style="color:red"><%= flash[:alert] %></p>
+<%= render 'form', transferencia: @transferencia, conta: @conta_autor, cliente: @cliente_autor %>
+
+<%= link_to 'Voltar', cliente_path(@cliente_autor) %>

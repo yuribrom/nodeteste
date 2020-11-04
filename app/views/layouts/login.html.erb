@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NODE TESTE | Entrar</title>
+  <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+
+</head>
+<body>
+<% if !params[:msn].nil? %>
+  <div>
+    <p>
+    <h3><%= params[:msn][:mensagem] %></h3>
+    </p>
+  </div>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  numero: 1
+  saldo: 
+  data_abertura: 2020-10-29
+  tipo: 1
+  data_encerramento: 2020-10-29
+
+two:
+  numero: 1
+  saldo: 
+  data_abertura: 2020-10-29
+  tipo: 1
+  data_encerramento: 2020-10-29

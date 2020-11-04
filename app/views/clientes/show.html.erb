@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+<p style="color:red"><%= flash[:alert] %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @cliente.nome %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @cliente.email %>
+</p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @cliente.cpf %>
+</p>
+
+<p>
+  <strong>Rg:</strong>
+  <%= @cliente.rg %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @cliente.endereco %>
+</p>
+
+<p>
+  <strong>Data nascimento:</strong>
+  <%= imprimi_data(@cliente.data_nascimento) %>
+</p>
+<%= link_to 'Voltar', clientes_path %>
+<% if @cliente.id == session[:usuario_id] %> |
+  <%= link_to 'Editar', edit_cliente_path(@cliente) %> |
+  <%= link_to 'Abrir conta ' + @cliente.nome, new_conta_path(cliente_id: @cliente.id) %> |
+  <%= link_to 'Deposito', new_transferencia_path(cliente_id: @cliente.id, tipo: 'deposito') %>
+<% end %>
+<% if @cliente.id == session[:usuario_id] %>
+  <% if @cliente.contas %>
+    <h1>Contas</h1>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Numero</th>
+        <th>Saldo</th>
+        <th>Data abertura</th>
+        <th>Tipo</th>
+        <th>Data encerramento</th>
+        <th colspan="5"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @cliente.contas.each do |conta| %>
+        <tr>
+          <td><%= conta.numero %></td>
+          <td><%= formata_dinheiro(conta.saldo) %></td>
+          <td><%= imprimi_data(conta.data_abertura) %></td>
+          <td><%= conta.tipo %></td>
+          <td><%= imprimi_data(conta.data_encerramento) %></td>
+          <td><%= link_to 'Exibir', conta %></td>
+          <td><%= link_to 'Editar', edit_conta_path(conta) %></td>
+          <td><%= link_to 'Transferência', new_transferencia_path(cliente_id: conta.id, tipo: 'transferência') %></td>
+          <td><%= link_to 'Saque', new_transferencia_path(cliente_id: conta.id, tipo: 'saque') %></td>
+          <td><%= link_to 'Extrato', extrato_clientes_path(cliente_id: conta.id) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+  <% end %>
+<% end %>
+

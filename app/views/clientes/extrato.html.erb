@@ -1,0 +1,52 @@
+<%= form_tag("/clientes/extrato", method: "get") do %>
+  <div class="field">
+    <%= label_tag(:data_inicio, "Data inicio:") %>
+    <%= date_field('data', 'inicio', value: params[:data] ? params[:data][:inicio] ? params[:data][:inicio] : params[:data][:inicio] : '') %>
+  </div>
+
+  <div class="field">
+    <%= label_tag(:data_fim, "Data fim:") %>
+    <%= date_field('data', 'fim', value: params[:data] ? params[:data][:fim] ? params[:data][:fim] : '' : '') %>
+  </div>
+
+  <div class="field">
+    <%= label_tag(:conta, "Conta:") %>
+    <p><%= @conta.numero %></p>
+    <%= hidden_field_tag 'cliente_id', @conta.id %>
+  </div>
+
+
+  <div class="actions">
+    <%= submit_tag("Extrato") %>
+  </div>
+<% end %>
+
+<% unless @transferencias.blank? %>
+  <table>
+    <thead>
+    <tr>
+      <th>Autor</th>
+      <th>Receptor</th>
+      <th>Valor</th>
+      <th>Data transferência</th>
+      <th>Tipo</th>
+      <th>Tarifa</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @transferencias.each do |trans| %>
+      <tr>
+        <td><%= trans.tipo != 'deposito' ? trans.autor.numero : '' %></td>
+        <td><%= trans.tipo != 'saque' ? trans.receptor.numero : '' %></td>
+        <td><%= formata_dinheiro(trans.valor) %></td>
+        <td><%= imprimi_data_hora(trans.created_at) %></td>
+        <td><%= trans.tipo %></td>
+        <td><%= formata_dinheiro(trans.tarifa) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to 'Voltar', @cliente %>

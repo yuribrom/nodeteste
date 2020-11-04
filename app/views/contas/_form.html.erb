@@ -1,0 +1,50 @@
+<%= form_with(model: conta, local: true) do |form| %>
+  <% if conta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(conta.errors.count, "error") %> prohibited this conta from being saved:</h2>
+
+      <ul>
+        <% conta.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h3>
+    <strong>Cliente:</strong>
+    <%= @cliente.nome %>
+  </h3>
+  <div class="field">
+    <%= hidden_field_tag "conta[cliente_id]", @cliente.id %>
+    <%= form.label :numero %>
+    <%= form.number_field :numero %>
+  </div>
+
+  <div class="field">
+    <%= form.label :saldo %>
+    <%= form.text_field :saldo, class: "money" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :data_abertura %>
+    <%= form.date_select :data_abertura %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tipo %>
+    <%= form.select :tipo, Conta.tipos.keys.map {|t| [t.titleize,t]}%>
+  </div>
+
+  <div class="field">
+    <%= form.label :data_encerramento %>
+    <%= form.date_select :data_encerramento %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script>
+    $(document).ready(function($) { $('.money').mask("#.##0,00", {reverse: true}); });
+</script>

@@ -1,0 +1,20 @@
+<div id="form">
+  <%= form_tag do %>
+    <div class="field">
+      <%= label :usu, "Email:" %>
+      <%= text_field(:usu, :login, :required => true, :placeholder => "E-mail") %>
+    </div>
+
+    <div class="field clearfix">
+      <%= label :usu, "Senha:" %>
+      <%= password_field(:usu, :senha, :required => true, :placeholder => "senha") %>
+    </div>
+    <br/>
+
+    <div class="actions">
+      <%= submit_tag "Entrar" %>
+    </div>
+  <% end %>
+</div>
+
+

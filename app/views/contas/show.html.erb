@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cliente:</strong>
+  <%= @cliente.nome %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @conta.numero %>
+</p>
+
+<p>
+  <strong>Saldo:</strong>
+  <%= formata_dinheiro(@conta.saldo) %>
+</p>
+
+<p>
+  <strong>Data abertura:</strong>
+  <%= imprimi_data(@conta.data_abertura) %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @conta.tipo %>
+</p>
+
+<p>
+  <strong>Data encerramento:</strong>
+  <%= @conta.data_encerramento %>
+</p>
+<%= link_to 'Voltar', @cliente %> |
+<% if session[:usuario_id] == @conta.cliente_id %>
+  <%= link_to 'Editar', edit_conta_path(@conta) %>
+<% end %>
