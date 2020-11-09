@@ -13,9 +13,10 @@ module NodeTeste
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = "pt-BR"
     config.time_zone = 'Brasilia'
-    config.i18n.fallbacks = true
     config.active_record.default_timezone = :local
     config.encoding = "utf-8"
+    config.assets.enabled = true
+    config.assets.paths << Rails.root.join("app", "assets", "javascript")
     config.filter_parameters += [:password]
     #config.active_record.raise_in_transactional_callbacks = true
     ActiveRecord::SessionStore::Session.table_name = 'legacy_session_table'

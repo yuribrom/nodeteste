@@ -25,7 +25,7 @@ class TransferenciasController < ApplicationController
     @transferencia = Transferencia.new(transferencia_params)
     @transferencia.valor = dinheiro_fomatado params[:transferencia][:valor]
     set_conta_cliente(@transferencia.cliente_id)
-    @transferencia.conta_id = @transferencia.tipo == 'saque' ? @conta_autor.id : Transferencia.checar_numero_conta(params[:transferencia][:numero])
+    @transferencia.conta_id = Transferencia.checar_numero_conta(params[:transferencia][:numero])
     case @transferencia.tipo
     when 'transferência'
       retorno = Transferencia.valida_transferencia(session[:usuario_email], params[:usu][:senha])
